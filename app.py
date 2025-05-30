@@ -8,6 +8,11 @@ app = FastAPI()
 with open("data/vectorstore.pkl", "rb") as f:
     vectorstore = pickle.load(f)
 
+@app.get("/")
+def root():
+    return {"message": "API en ligne ✅"}
+
+
 @app.post("/ask")
 async def ask(request: Request):
     body = await request.json()
