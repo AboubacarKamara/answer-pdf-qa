@@ -1,0 +1,10 @@
+flask
+langchain
+faiss-cpu
+pdfplumber
+openai
+sentence-transformers
+fastapi
+uvicorn
+PyMuPDF
+python-dotenv
