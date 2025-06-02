@@ -12,16 +12,17 @@ class VectorStore:
     
     def search(self, query_embedding, top_k=5):
         q_emb = np.array([query_embedding]).astype('float32')
-        try:
-            D = np.empty((1, top_k), dtype='float32')
-            I = np.empty((1, top_k), dtype='int64')
-            self.index.search(q_emb, top_k, D, I)
-        except Exception as e:
-            print(f"Erreur faiss search: {e}")
-            raise
-        
+        n, d = q_emb.shape
+
+        distances = np.empty((n, top_k), dtype='float32')
+        labels = np.empty((n, top_k), dtype='int64')
+
+        # Appel à l'API SWIG (low-level)
+        self.index.search(n, faiss.swig_ptr(q_emb), top_k,
+                          faiss.swig_ptr(distances), faiss.swig_ptr(labels))
+
         results = []
-        for i in I[0]:
+        for i in labels[0]:
             if i < len(self.texts):
                 results.append(self.texts[i])
         return results
