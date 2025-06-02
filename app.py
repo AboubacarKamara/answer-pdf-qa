@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request, HTTPException
 from rag_engine import answer_query
 import pickle
+import faiss
 
 app = FastAPI()
 
@@ -29,3 +30,10 @@ async def ask(request: Request):
     print(f"✅ Réponse générée")
     return {"answer": answer}
 
+@app.get("/debug/faiss_version")
+async def faiss_version():
+    return {
+        "faiss_version": getattr(faiss, "__version__", "unknown"),
+        "faiss_file": faiss.__file__,
+        "faiss_type": str(type(faiss.IndexFlatL2(1)))
+    }
