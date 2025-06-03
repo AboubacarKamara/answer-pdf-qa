@@ -13,7 +13,7 @@ def init_index():
     """
     print("Initialisation de l'index...")
     # 1. Charger et découper le PDF
-    chunks = load_and_split_pdf("./cours_small.pdf")
+    chunks = load_and_split_pdf("./Cours.pdf")
 
     # chunks = chunks[:50]
 
