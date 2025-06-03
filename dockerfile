@@ -1,7 +1,7 @@
 FROM continuumio/miniconda3
 
 # Set working directory
-WORKDIR /app
+WORKDIR /
 
 # Copy environment and install
 COPY environment.yml .
