@@ -4,8 +4,8 @@ FROM continuumio/miniconda3
 WORKDIR /
 
 # Copy environment and install
-COPY environment.yml .
-RUN conda env create -f environment.yml
+COPY environment.yaml .
+RUN conda env create -f environment.yaml
 SHELL ["conda", "run", "-n", "myenv", "/bin/bash", "-c"]
 
 # Copy source and install pip deps (if any)
