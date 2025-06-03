@@ -1,19 +1,20 @@
 FROM continuumio/miniconda3
 
-# Set working directory
-WORKDIR /
+WORKDIR /app
 
-# Copy environment and install
+# Copier les fichiers nécessaires
 COPY environment.yaml .
+
+# Créer l’environnement Conda
 RUN conda env create -f environment.yaml
+
+# Activer l’environnement et installer le reste
 SHELL ["conda", "run", "-n", "myenv", "/bin/bash", "-c"]
 
-# Copy source and install pip deps (if any)
 COPY . .
-RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose the port
+# Expose le port utilisé par uvicorn
 EXPOSE 8000
 
-# Command to run the app
+# Commande pour démarrer l'app
 CMD ["conda", "run", "-n", "myenv", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]

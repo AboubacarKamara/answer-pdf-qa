@@ -3,9 +3,9 @@ channels:
   - conda-forge
 dependencies:
   - python=3.11
-  - faiss-cpu=1.7.4
   - pip
   - pip:
+      - faiss-cpu==1.7.4.post2  # version PyPI sans AVX2
       - flask
       - langchain
       - pdfplumber
