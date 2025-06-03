@@ -6,8 +6,6 @@ load_dotenv(override=True)
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def get_embedding(text, model="text-embedding-ada-002"):
-    load_dotenv(override=True)
-    openai.api_key = os.getenv("OPENAI_API_KEY")
     response = openai.embeddings.create(
         input=[text],
         model=model

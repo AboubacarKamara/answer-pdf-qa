@@ -9,7 +9,7 @@ def answer_query(query, vectorstore: VectorStore):
     top_chunks = vectorstore.search(q_embedding, top_k=5)
     context = "\n\n".join([c["content"] for c in top_chunks])
 
-    prompt = f"""Réponds uniquement à partir du texte suivant :
+    prompt = f"""Réponds uniquement à partir du texte suivant, si la réponse n'est pas dans le texte, réponds "Je ne sais pas":
 
 {context}
 

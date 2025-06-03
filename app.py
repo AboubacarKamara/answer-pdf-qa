@@ -6,11 +6,6 @@ import faiss
 
 app = FastAPI()
 
-# Charger l’index sauvegardé
-with open("data/vectorstore.pkl", "rb") as f:
-    vectorstore = pickle.load(f)
-
-
 @app.get("/")
 def root():
     return {"message": "API en ligne ✅"}
@@ -22,6 +17,9 @@ def run_index_init():
 
 @app.post("/ask")
 async def ask(request: Request):
+    with open("data/vectorstore.pkl", "rb") as f:
+        vectorstore = pickle.load(f)
+
     try:
         body = await request.json()
     except Exception:
