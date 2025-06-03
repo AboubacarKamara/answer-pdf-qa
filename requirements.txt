@@ -1,3 +1,4 @@
+faiss-cpu
 flask
 langchain
 pdfplumber
@@ -5,5 +6,5 @@ openai
 sentence-transformers
 fastapi
 uvicorn
-PyMuPDF
 python-dotenv
+PyMuPDF
