@@ -15,8 +15,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy source code
 COPY . .
 
-# Génère l'index FAISS au build
-RUN python init_index.py
 
 EXPOSE 8000
 

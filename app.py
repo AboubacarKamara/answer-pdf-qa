@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Request, HTTPException
 from rag_engine import answer_query
+from init_index import init_index
 import pickle
 import faiss
 
@@ -13,6 +14,11 @@ with open("data/vectorstore.pkl", "rb") as f:
 @app.get("/")
 def root():
     return {"message": "API en ligne ✅"}
+
+@app.get("/init_index")
+def run_index_init():
+    init_index()
+    return {"status": "index created"}
 
 @app.post("/ask")
 async def ask(request: Request):
