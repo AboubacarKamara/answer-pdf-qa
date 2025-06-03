@@ -7,7 +7,7 @@ import faiss
 import numpy as np
 
 # 1. Charger et découper le PDF
-chunks = load_and_split_pdf("./Cours.pdf")
+chunks = load_and_split_pdf("./cours_small.pdf")
 
 # chunks = chunks[:50]
 
