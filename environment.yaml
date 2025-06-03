@@ -1,0 +1,17 @@
+name: myenv
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - faiss-cpu=1.7.4
+  - pip
+  - pip:
+      - flask
+      - langchain
+      - pdfplumber
+      - openai
+      - sentence-transformers
+      - fastapi
+      - uvicorn
+      - PyMuPDF
+      - python-dotenv

@@ -1,20 +1,19 @@
-# Utiliser une image Python officielle légère
-FROM python:3.11-slim
+FROM continuumio/miniconda3
 
-# Définir le répertoire de travail dans le container
+# Set working directory
 WORKDIR /app
 
-# Copier les fichiers requirements.txt (ou poetry.lock / pyproject.toml) dans le container
-COPY requirements.txt .
+# Copy environment and install
+COPY environment.yml .
+RUN conda env create -f environment.yml
+SHELL ["conda", "run", "-n", "myenv", "/bin/bash", "-c"]
 
-# Installer les dépendances (avec pip)
+# Copy source and install pip deps (if any)
+COPY . .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copier tout le code source dans le container
-COPY . .
-
-# Exposer le port sur lequel uvicorn va tourner
+# Expose the port
 EXPOSE 8000
 
-# Lancer l'application avec uvicorn
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+# Command to run the app
+CMD ["conda", "run", "-n", "myenv", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]

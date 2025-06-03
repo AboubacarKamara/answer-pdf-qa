@@ -11,25 +11,18 @@ class VectorStore:
         self.texts.extend(metadata)
     
     def search(self, query_embedding, top_k=5):
-        # 1. Transformer l'embedding en tableau NumPy (1, d)
-        q_emb = np.array(query_embedding, dtype='float32').reshape(1, -1)
-
-        # 2. Préparer les buffers pour les résultats
-        distances = np.empty((1, top_k), dtype='float32')
-        labels = np.empty((1, top_k), dtype='int64')
-
-        # 3. Appel bas niveau avec TOUS les arguments requis (5)
-        self.index.search(
-            1,                              # n
-            faiss.swig_ptr(q_emb),         # x
-            top_k,                         # k
-            faiss.swig_ptr(distances),     # distances
-            faiss.swig_ptr(labels)         # labels
-        )
-
-        # 4. Résultats lisibles
-        results = [self.texts[i] for i in labels[0] if i >= 0 and i < len(self.texts)]
+        q_emb = np.array([query_embedding]).astype('float32')
+        try:
+            D, I = self.index.search(q_emb, top_k)
+        except Exception as e:
+            print(f"Erreur faiss search: {e}")
+            raise
+        results = []
+        for i in I[0]:
+            if i < len(self.texts):
+                results.append(self.texts[i])
         return results
+
 
 
 

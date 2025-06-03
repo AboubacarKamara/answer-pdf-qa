@@ -1,6 +1,5 @@
 flask
 langchain
-faiss-cpu
 pdfplumber
 openai
 sentence-transformers
