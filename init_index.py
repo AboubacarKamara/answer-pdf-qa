@@ -38,6 +38,7 @@ def init_index():
     faiss.write_index(index, "data/faiss.index")
 
     # 6. Sauvegarder le vecteur et le texte associé
+    vectorstore.index = None
     with open("data/vectorstore.pkl", "wb") as f:
         pickle.dump(vectorstore, f)
 

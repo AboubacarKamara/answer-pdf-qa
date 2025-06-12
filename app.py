@@ -17,8 +17,10 @@ def run_index_init():
 
 @app.post("/ask")
 async def ask(request: Request):
+    index = faiss.read_index("data/faiss.index")
     with open("data/vectorstore.pkl", "rb") as f:
         vectorstore = pickle.load(f)
+    vectorstore.index = index
 
     try:
         body = await request.json()
