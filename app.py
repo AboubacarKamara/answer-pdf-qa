@@ -3,6 +3,8 @@ from rag_engine import answer_query
 from init_index import init_index
 import pickle
 import faiss
+from sentence_transformers import CrossEncoder
+
 
 app = FastAPI()
 
@@ -21,6 +23,8 @@ async def ask(request: Request):
     with open("data/vectorstore.pkl", "rb") as f:
         vectorstore = pickle.load(f)
     vectorstore.index = index
+    vectorstore.cross_encoder = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+
 
     try:
         body = await request.json()
